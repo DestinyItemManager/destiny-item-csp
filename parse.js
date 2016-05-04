@@ -1,9 +1,12 @@
 var _ = require('lodash');
 var http = require('https');
-// var url = 'https://proxy.destinytrialsreport.com/Platform/Destiny/1/Account/4611686018429564083/Character/2305843009214947218/Inventory/?definitions=true';
-var url = 'https://proxy.destinytrialsreport.com/Platform/Destiny/1/Account/4611686018428398835/Character/2305843009240585311/Inventory/?definitions=true';
+var url = 'https://proxy.destinytrialsreport.com/Platform/Destiny/1/Account/4611686018429564083/Character/2305843009214947218/Inventory/?definitions=true';
+// var url = 'https://proxy.destinytrialsreport.com/Platform/Destiny/2/Account/4611686018428398835/Character/2305843009240585311/Inventory/?definitions=true';
+// var url = 'https://proxy.destinytrialsreport.com/Platform/Destiny/1/Account/4611686018428399287/Character/2305843009220329659/Inventory/?definitions=true';
+// var url = 'https://proxy.destinytrialsreport.com/Platform/Destiny/1/Account/4611686018429631230/Character/2305843009215174923/Inventory/?definitions=true'; // Artifact 335
 var summary = null;
 var buckets = null;
+var definitions = null;
 var items = [];
 var types = [
   4023194814, // Ghost
@@ -182,6 +185,15 @@ http.get(url, function(res){
                     }
                 };
 
+                if (parsedItem.defense < 285) {
+                  return;
+                }
+
+                if (summary.Response.definitions.items[item.itemHash].tierType < 5) {
+                  return;
+                }
+
+
                 var itemCsp = 0;
                 var statCount = 0;
 
@@ -223,7 +235,7 @@ http.get(url, function(res){
                     item_str_base: parsedItem.stats.str.base,
                     item_str_max: parsedItem.stats.str.max,
                     item_str_active: parsedItem.stats.str.nodeActive,
-                    item_csp: parsedItem.stats.int.max + parsedItem.stats.dis.max + parsedItem.stats.str.max + getBonus(parsedItem.defense, parsedItem.type)
+                    item_csp: parsedItem.stats.int.max + parsedItem.stats.dis.max + parsedItem.stats.str.max + getBonus(335, parsedItem.type)
                 }
 
                 items.push(parsed);
