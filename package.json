@@ -1,5 +1,5 @@
 {
-  "name": "max-csp",
+  "name": "destiny-item-csp",
   "version": "1.0.0",
   "description": "",
   "main": "parse.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "lodash": "^4.11.2"
   }
