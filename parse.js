@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var http = require('https');
-var url = 'https://proxy.destinytrialsreport.com/Platform/Destiny/1/Account/4611686018429564083/Character/2305843009214947218/Inventory/?definitions=true';
+// var url = 'https://proxy.destinytrialsreport.com/Platform/Destiny/1/Account/4611686018429564083/Character/2305843009214947218/Inventory/?definitions=true';
+var url = 'https://proxy.destinytrialsreport.com/Platform/Destiny/1/Account/4611686018428398835/Character/2305843009240585311/Inventory/?definitions=true';
 var summary = null;
 var buckets = null;
 var items = [];
@@ -151,28 +152,29 @@ http.get(url, function(res){
 
                 // console.log(JSON.stringify(talentGrid, null, 2));
 
+                var intStat = _.find(item.stats, { statHash: 144602215 });
+                var disStat = _.find(item.stats, { statHash: 1735777505 });
+                var strStat = _.find(item.stats, { statHash: 4244567218 });
+
                 var parsedItem = {
                     hash: item.itemHash,
                     type: type,
-                    defense: item.primaryStat.value,
+                    defense: (item.primaryStat) ? item.primaryStat.value : 0,
                     stats: {
                         int: {
-                            value: _.find(item.stats, { statHash: 144602215 })
-                                .value,
+                            value: (intStat) ? intStat.value : 0,
                             nodeActive: false,
                             base: 0,
                             max: 0
                         },
                         dis: {
-                            value: _.find(item.stats, { statHash: 1735777505 })
-                                .value,
+                            value: (disStat) ? disStat.value : 0,
                             nodeActive: false,
                             base: 0,
                             max: 0
                         },
                         str: {
-                            value: _.find(item.stats, { statHash: 4244567218 })
-                                .value,
+                            value: (strStat) ? strStat.value : 0,
                             nodeActive: false,
                             base: 0,
                             max: 0
